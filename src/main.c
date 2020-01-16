@@ -32,58 +32,6 @@ char **my_str_to_tab(char *str, char s)
     return tab;
 }
 
-char **get_path(char **env)
-{
-    int i = 0;
-    char **tab;
-
-    for (; env[i] != 0; i++) {
-        if (env[i][0] == 'P' && env[i][1] == 'A' &&
-            env[i][2] == 'T' && env[i][3] == 'H') {
-            tab = my_str_to_tab(env[i], ':');
-        }
-    }
-    return tab;
-}
-
-char *rm_n(char *str)
-{
-    for (int i = 0; str[i] != 0; i++) {
-        if (str[i] == ' ' || str[i] == '\n')
-            str[i] = 0;
-    }
-    return str;
-}
-
-char **get_opt(char *str)
-{
-    char **opt = malloc(sizeof(char *) * my_strlen(str));
-    int i = 1;
-    int x = 0;
-
-    opt[0] = malloc(sizeof(char) * my_strlen(str));
-    while (str[x] != 0 && str[x] != ' ') {
-        opt[0][x] = str[x];
-        x++;
-    }
-    x++;
-    for (int y = 0; str[x] != 0; ) {
-        if (y == 0)
-            opt[i] = malloc(sizeof(char) * my_strlen(str));
-        if (str[x] != ' ' && str[x] != '\n')
-            opt[i][y] = str[x];
-        else {
-            opt[i][y] = 0;
-            i++;
-            y = -1;
-        }
-        x++;
-        y++;
-    }
-    opt[i + 1] = 0;
-    return opt;
-}
-
 char *is_good_bin(char *str, char **path)
 {
     DIR *src;
