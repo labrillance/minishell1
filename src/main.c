@@ -89,6 +89,7 @@ char *is_good_bin(char *str, char **path)
     DIR *src;
     struct dirent *info;
     int tmp = 0;
+    char *cmp = malloc(sizeof(char) * 1000);
 
     for (int i = 0; path[i] != NULL; i++, tmp = 0) {
         src = opendir(path[i]);
@@ -97,8 +98,10 @@ char *is_good_bin(char *str, char **path)
         while (info != NULL) {
             while (str[tmp] != 0 && info->d_name[tmp] != 0 && str[tmp] == info->d_name[tmp])
                 tmp++;
-            if (tmp == my_strlen(str) && str[tmp] == 0 && info->d_name[tmp] == 0)
-                return my_strcat(path[i], info->d_name);
+            if (tmp == my_strlen(str) && str[tmp] == 0 && info->d_name[tmp] == 0) {
+                cmp = my_strcpy(cmp, path[i]);
+                return my_strcat(cmp, info->d_name);
+            }
             info = readdir(src);
             tmp = 0;
         }
