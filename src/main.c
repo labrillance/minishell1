@@ -118,7 +118,8 @@ int my_shell(char **tab, char **env, char **av)
     char **opt = NULL;
 
     my_putstr("$>");
-    getline(&test, &s, stdin);
+    if (getline(&test, &s, stdin) == -1)
+        return 0;
     opt = get_opt(test);
     test = rm_n(test);
     if (test[0] == 'e' && test[1] == 'x' && test[2] == 'i' && test[3] == 't' && test[4] == 0)
