@@ -6,6 +6,8 @@
 */
 
 #include <stdlib.h>
+#include <sys/wait.h>
+#include "my.h"
 
 char *my_strcpy(char *dest, char const *src)
 {
@@ -40,6 +42,23 @@ char *rm_n(char *str)
             str[i] = 0;
     }
     return str;
+}
+
+char *bin_transform(char *str)
+{
+    int i = 2;
+    int y = 0;
+    char *new = malloc(sizeof(char) * my_strlen(str));
+
+    if (str[0] == '.' && str[1] == '/') {
+        while (str[i] != 0) {
+            new[y] = str[i];
+            i++;
+            y++;
+        }
+        new[y] = 0;
+    }
+    return new;
 }
 
 char **get_opt(char *str)
