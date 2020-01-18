@@ -47,11 +47,15 @@ char **get_opt(char *str)
     char **opt = malloc(sizeof(char *) * my_strlen(str));
     int i = 1;
     int x = 0;
+    int u = 2;
 
     opt[0] = malloc(sizeof(char) * my_strlen(str));
+    opt[0][0] = '.';
+    opt[0][1] = '/';
     while (str[x] != 0 && str[x] != ' ') {
-        opt[0][x] = str[x];
+        opt[0][u] = str[x];
         x++;
+        u++;
     }
     x++;
     for (int y = 0; str[x] != 0; ) {
