@@ -15,19 +15,16 @@ OBJ	=    $(SRC:.c=.o)
 
 CFLAGS	= -I include -W -Wall -g
 
-LDFLAGS	=  -lm
-
 NAME	= mysh
 
 all:   	$(NAME)
 
 $(NAME):        $(OBJ)
-		make -C ./lib/my
-		gcc -o $(NAME) $(OBJ) $(LDFLAGS) -L./lib/my -lmy -lm
+		make -C ./lib/my re
+		gcc -o $(NAME) $(OBJ) $(LDFLAGS) -L./lib/my -lmy 
 clean:
 		rm -f *.o
 fclean:		clean
 	        rm -f $(NAME)
 
 re:     fclean all
-
