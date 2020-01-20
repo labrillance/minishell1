@@ -58,45 +58,37 @@ char *bin_transform(char *str)
         }
         new[y] = 0;
     }
+    new[y] = 0;
     return new;
 }
 
 char **get_opt(char *str)
 {
-    char **opt = malloc(sizeof(char *) * my_strlen(str));
     int i = 1;
     int x = 0;
-    int u = 2;
+    char **opt = malloc(sizeof(char *) * (i + 10));
 
-    opt[0] = malloc(sizeof(char) * my_strlen(str) + 3);
-    opt[0][0] = '.';
-    opt[0][1] = '/';
-    while (str[x] != 0 && str[x] != ' ' && str[x] != '\n') {
-        opt[0][u] = str[x];
+    while (str[x] != 0 && str[x] != ' ')
         x++;
-        u++;
-    }
-    if (str[x] == '\n')
-        x++;
-    opt[0][u] = 0;
     if (str[x] != 0)
         x++;
+    opt[i] = malloc(sizeof(char) * my_strlen(str));
     for (int y = 0; str[x] != 0; ) {
-        if (y == 0)
-            opt[i] = malloc(sizeof(char) * my_strlen(str));
         if (str[x] != ' ' && str[x] != '\n')
             opt[i][y] = str[x];
         else {
             opt[i][y] = 0;
             i++;
+            opt[i] = malloc(sizeof(char) * my_strlen(str));
             y = -1;
         }
         x++;
         y++;
+        if (str[x] == 0) {
+            opt[i][y] = 0;
+            i++;
+        }
     }
-    if (opt[i] != NULL)
-        opt[i + 1] = 0;
-    else
-        opt[i] = 0;
+    opt[i] = 0;
     return opt;
 }

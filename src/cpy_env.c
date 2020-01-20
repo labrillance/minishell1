@@ -76,6 +76,7 @@ int my_cd(char **opt, char *str, char **env)
             buf = getcwd(buf, size);
             buf = add_n(buf);
             tmp = malloc(sizeof(char) * my_strlen(buf) * 2);
+            tmp[0] = 0;
             buf = my_strcat(buf, my_strcpy(tmp, opt[1]));
         } else if (opt[1] != NULL && opt[1][0] != '~') {
             tmp = malloc(sizeof(char) * my_strlen(opt[1]) * 2);

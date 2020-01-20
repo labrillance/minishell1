@@ -105,6 +105,7 @@ int my_shell(char **tab, char **env, char **av)
     if (test[0] == 'e' && test[1] == 'x' && test[2] == 'i' && test[3] == 't' && test[4] == 0)
         return 0;
     test = is_good_bin(test, tab);
+    opt[0] = test;
     if (test != NULL) {
         pid = fork();
         if (pid == 0)
