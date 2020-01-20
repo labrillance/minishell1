@@ -94,6 +94,9 @@ char **get_opt(char *str)
         x++;
         y++;
     }
-    opt[i] = 0;
+    if (opt[i] != NULL)
+        opt[i + 1] = 0;
+    else
+        opt[i] = 0;
     return opt;
 }

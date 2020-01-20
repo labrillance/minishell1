@@ -96,6 +96,7 @@ int my_shell(char **tab, char **env, char **av)
     my_putstr("$>");
     if (getline(&test, &s, stdin) == -1)
         return 0;
+    test = clean_str(test);
     opt = get_opt(test);
     test = rm_n(test);
     if (my_cd(opt, test, env) == 1) {

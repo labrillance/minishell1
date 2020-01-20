@@ -9,6 +9,7 @@
 SRC     	=	./src/main.c 	\
 				./src/my_strcpy.c \
 				./src/cpy_env.c \
+				./src/clean_str.c \
 
 OBJ	=    $(SRC:.c=.o)
 
