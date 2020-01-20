@@ -68,15 +68,19 @@ char **get_opt(char *str)
     int x = 0;
     int u = 2;
 
-    opt[0] = malloc(sizeof(char) * my_strlen(str));
+    opt[0] = malloc(sizeof(char) * my_strlen(str) + 3);
     opt[0][0] = '.';
     opt[0][1] = '/';
-    while (str[x] != 0 && str[x] != ' ') {
+    while (str[x] != 0 && str[x] != ' ' && str[x] != '\n') {
         opt[0][u] = str[x];
         x++;
         u++;
     }
-    x++;
+    if (str[x] == '\n')
+        x++;
+    opt[0][u] = 0;
+    if (str[x] != 0)
+        x++;
     for (int y = 0; str[x] != 0; ) {
         if (y == 0)
             opt[i] = malloc(sizeof(char) * my_strlen(str));
@@ -90,6 +94,6 @@ char **get_opt(char *str)
         x++;
         y++;
     }
-    opt[i + 1] = 0;
+    opt[i] = 0;
     return opt;
 }
