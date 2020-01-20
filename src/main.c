@@ -40,7 +40,7 @@ char *check_repo_act(char *str)
     DIR *src;
     struct dirent *info;
     char *cmp = NULL;
-    size_t *size = 100;
+    size_t size = 100;
     int tmp = 0;
 
     str = bin_transform(str);

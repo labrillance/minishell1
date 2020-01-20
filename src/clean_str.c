@@ -5,6 +5,9 @@
 ** clean_str.c
 */
 
+#include "my.h"
+#include <stdlib.h>
+
 char *clean_str(char *str)
 {
     char *result = malloc(sizeof(char) * my_strlen(str));

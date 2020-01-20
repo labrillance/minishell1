@@ -19,3 +19,6 @@ char *rm_n(char *str);
 char **get_opt(char *str);
 char **my_str_to_tab(char *str, char s);
 char **cpy_env(char **env);
+char *bin_transform(char *str);
+char *clean_str(char *str);
+void my_putchar(char c);
