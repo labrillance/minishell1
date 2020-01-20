@@ -17,7 +17,7 @@ char *clean_str(char *str)
     while (str[y] == ' ' || str[y] == '\t')
         y++;
     for (; str[y] != 0;) {
-        if (y != 0 && (str[y] == ' ' && str[y - 1] == ' ') || (str[y] == '\t' && (str[y - 1] == ' ' || str[y - 1] == '\t')))
+        if (y != 0 && (str[y] == ' ' && (str[y - 1] == ' ' || str[y - 1] == '\t')) || (str[y] == '\t' && (str[y - 1] == ' ' || str[y - 1] == '\t')))
             y++;
         else if (str[y] == '\n')
             y++;
