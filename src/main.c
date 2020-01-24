@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <dirent.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 
 char **my_str_to_tab(char *str, char s)
 {
@@ -113,6 +114,8 @@ int my_shell(char **tab, char **env, char **av)
         else
             wait(&status);
     }
+    free(opt);
+    free(test);
     return 1;
 }
 
