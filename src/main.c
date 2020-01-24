@@ -49,7 +49,8 @@ char *check_repo_act(char *str)
     src = opendir(cmp);
     info = readdir(src);
     while (info != NULL) {
-        while (str[tmp] != 0 && info->d_name[tmp] != 0 && str[tmp] == info->d_name[tmp])
+        while (str[tmp] != 0 && info->d_name[tmp] != 0 &&
+            str[tmp] == info->d_name[tmp])
             tmp++;
         if (tmp == my_strlen(str) && str[tmp] == 0 && info->d_name[tmp] == 0)
             return my_strcat(cmp, info->d_name);
@@ -69,9 +70,11 @@ char *is_good_bin(char *str, char **path)
         if (src != NULL)
             info = readdir(src);
         for (; info != NULL; tmp = 0, info = readdir(src)) {
-            while (str[tmp] != 0 && info->d_name[tmp] != 0 && str[tmp] == info->d_name[tmp])
+            while (str[tmp] != 0 && info->d_name[tmp] != 0 &&
+                str[tmp] == info->d_name[tmp])
                 tmp++;
-            if (tmp == my_strlen(str) && str[tmp] == 0 && info->d_name[tmp] == 0) {
+            if (tmp == my_strlen(str) && str[tmp] == 0 &&
+                info->d_name[tmp] == 0) {
                 cmp = my_strcpy(cmp, path[i]);
                 return my_strcat(cmp, info->d_name);
             }
@@ -102,7 +105,8 @@ int my_shell(char **tab, char **env, char **av)
     if (my_cd(opt, test, env) == 1) {
         return 1;
     }
-    if (test[0] == 'e' && test[1] == 'x' && test[2] == 'i' && test[3] == 't' && test[4] == 0)
+    if (test[0] == 'e' && test[1] == 'x' && test[2] == 'i' &&
+        test[3] == 't' && test[4] == 0)
         return 0;
     test = is_good_bin(test, tab);
     opt[0] = test;
@@ -122,6 +126,8 @@ int main(int ac, char **av, char **env)
     int i = 1;
     char **new_env = cpy_env(env);
 
+    if (check_error(ac, av) == 84)
+        return 84;
     tab = get_path(env);
     while (i == 1) {
         i = my_shell(tab, new_env, av);
