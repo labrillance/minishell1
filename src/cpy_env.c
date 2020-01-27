@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-char **change_pwdname(char **env) 
+char **change_pwdname(char **env)
 {
     int i = 0;
     char *new = NULL;
@@ -22,7 +22,7 @@ char **change_pwdname(char **env)
     tmp[3] = '=';
     tmp[4] = 0;
     new = getcwd(new, size);
-    while(env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D')
+    while (env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D')
         i++;
     env[i] = 0;
     env[i] = my_strcat(tmp, new);
@@ -37,7 +37,8 @@ char *get_home(char **env)
     int x = 0;
     int tmp = 0;
 
-    while (env[i][0] != 'H' || env[i][1] != 'O' || env[i][2] != 'M' || env[i][3] != 'E')
+    while (env[i][0] != 'H' || env[i][1] != 'O' ||
+        env[i][2] != 'M' || env[i][3] != 'E')
         i++;
     while (env[i][y] != 0) {
         while (tmp == 0 && env[i][y - 1] != '=')

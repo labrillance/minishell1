@@ -8,6 +8,15 @@
 #include "my.h"
 #include <stdlib.h>
 
+char *rm_n(char *str)
+{
+    for (int i = 0; str[i] != 0; i++) {
+        if (str[i] == ' ' || str[i] == '\n')
+            str[i] = 0;
+    }
+    return str;
+}
+
 char *clean_str(char *str)
 {
     char *result = malloc(sizeof(char) * my_strlen(str));
@@ -17,7 +26,9 @@ char *clean_str(char *str)
     while (str[y] == ' ' || str[y] == '\t')
         y++;
     for (; str[y] != 0;) {
-        if (y != 0 && (str[y] == ' ' && (str[y - 1] == ' ' || str[y - 1] == '\t')) || (str[y] == '\t' && (str[y - 1] == ' ' || str[y - 1] == '\t')))
+        if (y != 0 && (str[y] == ' ' &&
+            (str[y - 1] == ' ' || str[y - 1] == '\t'))
+            || (str[y] == '\t' && (str[y - 1] == ' ' || str[y - 1] == '\t')))
             y++;
         else if (str[y] == '\n')
             y++;
