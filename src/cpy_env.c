@@ -86,9 +86,10 @@ int my_cd(char **opt, char *str, char **env)
         if (buf != NULL)
             tmp = my_strcpy(tmp, buf);
         free(buf);
-        if (tmp != 0)
-            chdir(tmp);
-        if (tmp == 0 || opt[1][0] == '~')
+        if (tmp != 0) {
+            if (chdir(tmp) == -1)
+                perror("cd");
+        } if (tmp == 0 || opt[1][0] == '~')
             chdir(get_home(env));
         env = change_pwdname(env);
         return 1;
