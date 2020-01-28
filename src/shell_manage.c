@@ -49,11 +49,20 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     return 1;
 }
 
+void my_sig_trap(pid_t pid, int status)
+{
+    waitpid(pid, &status, 0);
+    if (status == 11)
+        write(1, "Segmentation fault\n", 19);
+    if (status == 139)
+        write(1, "Segmentation fault (core dumped)\n", 33);
+}
+
 int my_shell(char **tab, char **old_env)
 {
     char *test = NULL;
     int tmp = 0;
-    int status;
+    int status = 0;
     pid_t pid;
     char **opt = NULL;
     static char **env = NULL;
@@ -67,7 +76,7 @@ int my_shell(char **tab, char **old_env)
         if (pid == 0)
             execve(test, opt, env);
         else
-            wait(&status);
+            my_sig_trap(pid, status);
     }
     free(opt);
     free(test);
