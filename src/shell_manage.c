@@ -27,8 +27,10 @@ int built_in_functions(char **test, char ***opt, char ***env)
     return 2;
 }
 
-void my_ctrl_c(void)
+void my_ctrl_c(int o)
 {
+    int i = o;
+    i++;
     my_putchar('\n');
     my_putstr("$>");
 }
@@ -37,10 +39,11 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
 {
     size_t s = 100;
     int tmp = 0;
+    __sighandler_t sig = my_ctrl_c;
 
     *tab = get_path(*env);
     my_putstr("$>");
-    signal(SIGINT, my_ctrl_c);
+    signal(SIGINT, sig);
     if (getline(test, &s, stdin) == -1)
         return 0;
     *test = clean_str(*test);
@@ -59,6 +62,7 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
 
 void my_sig_trap(pid_t pid, int status)
 {
+    pid = wait(&status);
     waitpid(pid, &status, 0);
     if (status == 11)
         write(1, "Segmentation fault\n", 19);
@@ -83,8 +87,14 @@ int my_shell(char **tab, char **old_env)
         pid = fork();
         if (pid == 0)
             execve(test, opt, env);
-        else
-            my_sig_trap(pid, status);
+        else {
+            //pid = wait(&status);
+            waitpid(pid, &status, 0);
+            if (status == 11)
+                write(1, "Segmentation fault\n", 19);
+            if (status == 139)
+                write(1, "Segmentation fault (core dumped)\n", 33);
+        }
     }
     free(opt);
     free(test);
