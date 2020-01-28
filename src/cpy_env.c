@@ -9,26 +9,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-char **change_pwdname(char **env)
-{
-    int i = 0;
-    char *new = NULL;
-    size_t size = 1000;
-    char *tmp = malloc(sizeof(char) * 100);
-
-    tmp[0] = 'P';
-    tmp[1] = 'W';
-    tmp[2] = 'D';
-    tmp[3] = '=';
-    tmp[4] = 0;
-    new = getcwd(new, size);
-    while (env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D')
-        i++;
-    env[i] = 0;
-    env[i] = my_strcat(tmp, new);
-    return env;
-}
-
 char *get_home(char **env)
 {
     char *result = malloc(sizeof(char) * 100);
@@ -88,7 +68,7 @@ int my_cd(char **opt, char *str, char **env)
         free(buf);
         if (tmp != 0) {
             if (chdir(tmp) == -1)
-                perror("cd");
+                perror("cd ");
         } if (tmp == 0 || opt[1][0] == '~')
             chdir(get_home(env));
         env = change_pwdname(env);

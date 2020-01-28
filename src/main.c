@@ -89,50 +89,15 @@ char *is_good_bin(char *str, char **path)
         return str;
 }
 
-int my_shell(char **tab, char **env, char **av)
-{
-    char *test = NULL;
-    size_t s = 100;
-    int status;
-    pid_t pid;
-    char **opt = NULL;
-
-    my_putstr("$>");
-    if (getline(&test, &s, stdin) == -1)
-        return 0;
-    test = clean_str(test);
-    opt = get_opt(test);
-    test = rm_n(test);
-    if (my_cd(opt, test, env) == 1) {
-        return 1;
-    }
-    if (test[0] == 'e' && test[1] == 'x' && test[2] == 'i' &&
-        test[3] == 't' && test[4] == 0)
-        return 0;
-    test = is_good_bin(test, tab);
-    opt[0] = test;
-    if (test != NULL) {
-        pid = fork();
-        if (pid == 0)
-            execve(test, opt, env);
-        else
-            wait(&status);
-    }
-    free(opt);
-    free(test);
-    return 1;
-}
-
 int main(int ac, char **av, char **env)
 {
     char **tab;
     int i = 1;
-    char **new_env = cpy_env(env);
 
     if (check_error(ac, av) == 84)
         return 84;
     tab = get_path(env);
     while (i == 1) {
-        i = my_shell(tab, new_env, av);
+        i = my_shell(tab, av, env);
     }
 }
