@@ -26,3 +26,4 @@ char **cpy_env(char **env);
 char *bin_transform(char *str);
 char *clean_str(char *str);
 void my_putchar(char c);
+int get_first_opt(char *str);

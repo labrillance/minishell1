@@ -15,6 +15,7 @@ SRC     	=	./src/main.c 	\
 				./src/my_strcmp.c \
 				./src/shell_manage.c \
 				./src/cd_function_manage.c \
+				./src/parting_options.c \
 
 OBJ	=    $(SRC:.c=.o)
 

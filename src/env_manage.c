@@ -56,7 +56,7 @@ char **set_new_env(char **env, char **opt)
     if (opt[2] != NULL)
         env[i] = malloc(sizeof(char) * my_strlen(opt[1]) * my_strlen(opt[2]));
     else
-        env[i] = malloc(sizeof(char) * my_strlen(opt[1]) + 1);
+        env[i] = malloc(sizeof(char) * my_strlen(opt[1]) + 2);
     for (; opt[1][y] != 0; y++)
         env[i][y] = opt[1][y];
     env[i][y] = '=';

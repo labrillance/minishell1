@@ -14,28 +14,6 @@
 #include <stdlib.h>
 #include <sys/signal.h>
 
-char **my_str_to_tab(char *str, char s)
-{
-    char **tab = malloc(sizeof(char *) * my_strlen(str));
-    int i = 0;
-    int y = 0;
-
-    for (int x = 5; str[x] != 0; x++, y++) {
-        if (y == 0)
-            tab[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
-        if (str[x] != s && str[x] != '\n')
-            tab[i][y] = str[x];
-        else {
-            tab[i][y] = '/';
-            tab[i][y + 1] = 0;
-            y = -1;
-            i++;
-        }
-    }
-    tab[i][y] = '/';
-    tab[i + 1] = 0;
-    return tab;
-}
 
 char *check_repo_act(char *str)
 {
