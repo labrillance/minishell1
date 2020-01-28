@@ -57,9 +57,10 @@ char **unset_env(char **env, char **opt)
             cmp = 1;
         }
     }
-    int a = my_strlen(opt[1]);
-    for (int x = i - 1; env[i] != 0; i++) {
-        env[x] = env[i]; 
+    if (cmp == 1) {
+        for (int x = i - 1; env[i] != 0; i++) {
+            env[x] = env[i]; 
+        }
     }
     env[i - 1] = 0;
     return env;
@@ -72,13 +73,18 @@ char **set_new_env(char **env, char **opt)
 
     for (; env[i] != 0; i++);
     env = cpy_env_realloc(env, i);
-    env[i] = malloc(sizeof(char) * my_strlen(opt[1]) * my_strlen(opt[2]));
+    if (opt[2] != NULL)
+        env[i] = malloc(sizeof(char) * my_strlen(opt[1]) * my_strlen(opt[2]));
+    else
+        env[i] = malloc(sizeof(char) * my_strlen(opt[1]) + 1);
     for (; opt[1][y] != 0; y++)
         env[i][y] = opt[1][y];
     env[i][y] = '=';
     y++;
-    for (int x = 0; opt[2][x] != 0; x++, y++)
-        env[i][y] = opt[2][x];
+    if (opt[2] != NULL) {
+        for (int x = 0; opt[2][x] != 0; x++, y++)
+            env[i][y] = opt[2][x];
+    }
     env[i][y] = 0;
     env[i + 1] = 0;
     return env;
