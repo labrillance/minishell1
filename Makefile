@@ -11,6 +11,9 @@ SRC     	=	./src/main.c 	\
 				./src/cpy_env.c \
 				./src/clean_str.c \
 				./src/check_error.c \
+				./src/env_manage.c \
+				./src/my_strcmp.c \
+				./src/shell_manage.c \
 
 OBJ	=    $(SRC:.c=.o)
 

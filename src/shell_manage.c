@@ -7,16 +7,8 @@
 
 #include "my.h"
 
-int manage_shell(char **test, char ***opt, char ***env, char **tab)
+int built_in_functions(char **test, char ***opt, char ***env)
 {
-    size_t s = 100;
-
-    my_putstr("$>");
-    if (getline(test, &s, stdin) == -1)
-        return 0;
-    *test = clean_str(*test);
-    *opt = get_opt(*test);
-    *test = rm_n(*test);
     if (my_cd(*opt, *test, *env) == 1) {
         return 1;
     }
@@ -24,9 +16,30 @@ int manage_shell(char **test, char ***opt, char ***env, char **tab)
         *env = set_env(*env, *opt);
         return 1;
     }
+    if (my_strcmp(*test, "unsetenv") == 0) {
+        *env = unset_env(*env, *opt);
+        return 1;
+    }
     if (my_strlen(*test) == 4 && (*test)[0] == 'e' && (*test)[1] == 'x' &&
         (*test)[2] == 'i' && (*test)[3] == 't' && (*test)[4] == 0)
         return 0;
+    return 2;
+}
+
+int manage_shell(char **test, char ***opt, char ***env, char **tab)
+{
+    size_t s = 100;
+    int tmp = 0;
+
+    my_putstr("$>");
+    if (getline(test, &s, stdin) == -1)
+        return 0;
+    *test = clean_str(*test);
+    *opt = get_opt(*test);
+    *test = rm_n(*test);
+    tmp = built_in_functions(test, opt, env);
+    if (tmp != 2)
+        return tmp;
     *test = is_good_bin(*test, tab);
     *opt[0] = *test;
     return 2;

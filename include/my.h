@@ -5,6 +5,10 @@
 ** my.h
 */
 
+#include <stddef.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 char *my_strcat(char *dest, char const *src);
 char **change_pwdname(char **env);
