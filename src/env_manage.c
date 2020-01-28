@@ -9,26 +9,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-char **change_pwdname(char **env)
-{
-    int i = 0;
-    char *new = NULL;
-    size_t size = 1000;
-    char *tmp = malloc(sizeof(char) * 100);
-
-    tmp[0] = 'P';
-    tmp[1] = 'W';
-    tmp[2] = 'D';
-    tmp[3] = '=';
-    tmp[4] = 0;
-    new = getcwd(new, size);
-    while (env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D')
-        i++;
-    env[i] = 0;
-    env[i] = my_strcat(tmp, new);
-    return env;
-}
-
 char **cpy_env_realloc(char **env, int i)
 {
     char **new = malloc(sizeof(char *) * i + 2);

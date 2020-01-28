@@ -32,7 +32,8 @@ char **my_str_to_tab(char *str, char s)
             i++;
         }
     }
-    tab[i] = 0;
+    tab[i][y] = '/';
+    tab[i + 1] = 0;
     return tab;
 }
 

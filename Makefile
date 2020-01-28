@@ -14,6 +14,7 @@ SRC     	=	./src/main.c 	\
 				./src/env_manage.c \
 				./src/my_strcmp.c \
 				./src/shell_manage.c \
+				./src/cd_function_manage.c \
 
 OBJ	=    $(SRC:.c=.o)
 
