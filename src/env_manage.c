@@ -24,7 +24,6 @@ char **cpy_env_realloc(char **env, int i)
 char **unset_env(char **env, char **opt)
 {
     int tmp = 0;
-    int u = 0;
     int cmp = 0;
     int i = 0;
 
@@ -73,7 +72,6 @@ char **set_new_env(char **env, char **opt)
 char **set_env(char **env, char **opt)
 {
     int tmp = 0;
-    int u = 0;
     int cmp = 0;
 
     for (int i = 0, y = 0; env[i] != 0; i++, y = 0, tmp = 0) {

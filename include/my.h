@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 char *my_strcat(char *dest, char const *src);
 char **change_pwdname(char **env);
@@ -27,3 +28,9 @@ char *bin_transform(char *str);
 char *clean_str(char *str);
 void my_putchar(char c);
 int get_first_opt(char *str);
+int check_error(int ac, char **av);
+int my_shell(char **tab, char **old_env);
+int my_strcmp(char const *nb1, char const *nb2);
+char **set_env(char **env, char **opt);
+char **unset_env(char **env, char **opt);
+char *is_good_bin(char *str, char **path);

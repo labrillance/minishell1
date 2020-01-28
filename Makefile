@@ -29,7 +29,8 @@ $(NAME):        $(OBJ)
 		make -C ./lib/my re
 		gcc -o $(NAME) $(OBJ) $(LDFLAGS) -L./lib/my -lmy 
 clean:
-		rm -f *.o
+		rm -f ./src/*.o
+		make -C ./lib/my/ clean
 fclean:		clean
 	        rm -f $(NAME)
 

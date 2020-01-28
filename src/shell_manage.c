@@ -49,7 +49,7 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     return 1;
 }
 
-int my_shell(char **tab, char **av, char **old_env)
+int my_shell(char **tab, char **old_env)
 {
     char *test = NULL;
     int tmp = 0;

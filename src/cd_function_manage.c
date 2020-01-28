@@ -99,8 +99,6 @@ char *cd_options(char **opt, char **env)
 int my_cd(char **opt, char *str, char **env)
 {
     char *tmp = NULL;
-    char *buf = NULL;
-    size_t size = 1000;
 
     if (str[0] == 'c' && str[1] == 'd' && str[2] == 0) {
         tmp = cd_options(opt, env);

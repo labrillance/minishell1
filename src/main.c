@@ -61,13 +61,11 @@ char *is_good_bin_bis(char *str, char **path, DIR *src, int i)
 char *is_good_bin(char *str, char **path)
 {
     DIR *src;
-    struct dirent *info;
     char *cmp = malloc(sizeof(char) * 1000);
 
-    for (int i = 0, tmp = 0; path[i] != NULL; i++, tmp = 0) {
+    for (int i = 0; path[i] != NULL; i++) {
         src = opendir(path[i]);
         if (src != NULL) {
-            info = readdir(src);
             cmp = is_good_bin_bis(str, path, src, i);
             if (cmp != NULL)
                 return cmp;
@@ -90,6 +88,6 @@ int main(int ac, char **av, char **env)
         return 84;
     tab = get_path(env);
     while (i == 1) {
-        i = my_shell(tab, av, env);
+        i = my_shell(tab, env);
     }
 }
