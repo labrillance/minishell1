@@ -26,23 +26,27 @@ int built_in_functions(char **test, char ***opt, char ***env)
     return 2;
 }
 
-int manage_shell(char **test, char ***opt, char ***env, char **tab)
+int manage_shell(char **test, char ***opt, char ***env, char ***tab)
 {
     size_t s = 100;
     int tmp = 0;
 
+    *tab = get_path(*env);
     my_putstr("$>");
     if (getline(test, &s, stdin) == -1)
         return 0;
     *test = clean_str(*test);
     *opt = get_opt(*test);
     *test = rm_n(*test);
-    tmp = built_in_functions(test, opt, env);
-    if (tmp != 2)
-        return tmp;
-    *test = is_good_bin(*test, tab);
-    *opt[0] = *test;
-    return 2;
+    if ((*test)[0] != 0) {
+        tmp = built_in_functions(test, opt, env);
+        if (tmp != 2)
+            return tmp;
+        *test = is_good_bin(*test, *tab);
+        *opt[0] = *test;
+        return 2;
+    }
+    return 1;
 }
 
 int my_shell(char **tab, char **av, char **old_env)
@@ -55,7 +59,7 @@ int my_shell(char **tab, char **av, char **old_env)
     static char **env = NULL;
 
     env = (env == NULL) ? cpy_env(old_env) : env;
-    tmp = manage_shell(&test, &opt, &env, tab);
+    tmp = manage_shell(&test, &opt, &env, &tab);
     if (tmp != 2)
         return tmp;
     if (test != NULL) {

@@ -70,7 +70,7 @@ char **get_opt(char *str)
     int y = 0;
     char **opt = malloc(sizeof(char *) * (i + 10));
 
-    opt[i] = malloc(sizeof(char) * my_strlen(str));
+    opt[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
     opt[1][0] = 0;
     for (int x = get_first_opt(str); str[x] != 0; x++) {
         if (str[x] != ' ' && str[x] != '\n') {
@@ -79,7 +79,7 @@ char **get_opt(char *str)
         } if (str[x] == ' ') {
             opt[i][y] = 0;
             i++;
-            opt[i] = malloc(sizeof(char) * my_strlen(str));
+            opt[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
             y = 0;
         }
     } if (opt[1][0] != 0) {

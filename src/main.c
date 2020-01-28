@@ -22,7 +22,7 @@ char **my_str_to_tab(char *str, char s)
 
     for (int x = 5; str[x] != 0; x++, y++) {
         if (y == 0)
-            tab[i] = malloc(sizeof(char) * my_strlen(str) + 1);
+            tab[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
         if (str[x] != s && str[x] != '\n')
             tab[i][y] = str[x];
         else {
@@ -61,6 +61,25 @@ char *check_repo_act(char *str)
     return NULL;
 }
 
+char *is_good_bin_bis(char *str, char **path, DIR *src, int i)
+{
+    char *cmp = malloc(sizeof(char) * 1000);
+    struct dirent *info;
+
+    info = readdir(src);
+    for (int tmp = 0; info != NULL; tmp = 0, info = readdir(src)) {
+        while (str[tmp] != 0 && info->d_name[tmp] != 0 &&
+            str[tmp] == info->d_name[tmp])
+            tmp++;
+        if (tmp == my_strlen(str) && str[tmp] == 0 &&
+            info->d_name[tmp] == 0) {
+            cmp = my_strcpy(cmp, path[i]);
+            return my_strcat(cmp, info->d_name);
+        }
+    }
+    return NULL;
+}
+
 char *is_good_bin(char *str, char **path)
 {
     DIR *src;
@@ -69,17 +88,11 @@ char *is_good_bin(char *str, char **path)
 
     for (int i = 0, tmp = 0; path[i] != NULL; i++, tmp = 0) {
         src = opendir(path[i]);
-        if (src != NULL)
+        if (src != NULL) {
             info = readdir(src);
-        for (; info != NULL; tmp = 0, info = readdir(src)) {
-            while (str[tmp] != 0 && info->d_name[tmp] != 0 &&
-                str[tmp] == info->d_name[tmp])
-                tmp++;
-            if (tmp == my_strlen(str) && str[tmp] == 0 &&
-                info->d_name[tmp] == 0) {
-                cmp = my_strcpy(cmp, path[i]);
-                return my_strcat(cmp, info->d_name);
-            }
+            cmp = is_good_bin_bis(str, path, src, i);
+            if (cmp != NULL)
+                return cmp;
         }
     }
     str = check_repo_act(str);

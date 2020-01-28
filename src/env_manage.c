@@ -11,7 +11,7 @@
 
 char **cpy_env_realloc(char **env, int i)
 {
-    char **new = malloc(sizeof(char *) * i + 2);
+    char **new = malloc(sizeof(char *) * (i + 2));
 
     for (int y = 0; env[y] != 0; y++) {
         new[y] = malloc(sizeof(char) * my_strlen(env[y]));
@@ -28,9 +28,9 @@ char **unset_env(char **env, char **opt)
     int cmp = 0;
     int i = 0;
 
-    for (int y = 1; env[i] != 0 && cmp != 1; i++, y = 1, tmp = 0) {
-        for (; env[i][y - 1] != '='; y++) {
-            if (opt[1][y - 1] != env[i][y - 1])
+    for (int y = 0; env[i] != 0 && cmp != 1; i++, y = 0, tmp = 0) {
+        for (; env[i][y] != '=' && opt[1][y] != 0; y++) {
+            if (opt[1][y] != env[i][y])
                 tmp = -1;
         }
         if (tmp == 0) {
@@ -76,11 +76,12 @@ char **set_env(char **env, char **opt)
     int u = 0;
     int cmp = 0;
 
-    for (int i = 0, y = 1; env[i] != 0; i++, y = 1, tmp = 0) {
-        for (; env[i][y - 1] != '='; y++) {
-            if (opt[1][y - 1] != env[i][y - 1])
+    for (int i = 0, y = 0; env[i] != 0; i++, y = 0, tmp = 0) {
+        for (; env[i][y] != '=' && opt[1][y] != 0; y++) {
+            if (opt[1][y] != env[i][y])
                 tmp = -1;
         }
+        y++;
         if (tmp == 0) {
             for (int u = 0; opt[2][u] != 0; y++, u++)
                 env[i][y] = opt[2][u];
