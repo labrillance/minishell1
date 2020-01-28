@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include <sys/signal.h>
 
 int built_in_functions(char **test, char ***opt, char ***env)
 {
@@ -26,6 +27,12 @@ int built_in_functions(char **test, char ***opt, char ***env)
     return 2;
 }
 
+void my_ctrl_c(void)
+{
+    my_putchar('\n');
+    my_putstr("$>");
+}
+
 int manage_shell(char **test, char ***opt, char ***env, char ***tab)
 {
     size_t s = 100;
@@ -33,6 +40,7 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
 
     *tab = get_path(*env);
     my_putstr("$>");
+    signal(SIGINT, my_ctrl_c);
     if (getline(test, &s, stdin) == -1)
         return 0;
     *test = clean_str(*test);
