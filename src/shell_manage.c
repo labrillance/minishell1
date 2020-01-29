@@ -22,8 +22,10 @@ int built_in_functions(char **test, char ***opt, char ***env)
         return 1;
     }
     if (my_strlen(*test) == 4 && (*test)[0] == 'e' && (*test)[1] == 'x' &&
-        (*test)[2] == 'i' && (*test)[3] == 't' && (*test)[4] == 0)
+        (*test)[2] == 'i' && (*test)[3] == 't' && (*test)[4] == 0) {
+        my_putstr("exit\n");
         return 0;
+        }
     return 2;
 }
 
