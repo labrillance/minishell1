@@ -63,7 +63,7 @@ char *is_good_bin(char *str, char **path)
     DIR *src;
     char *cmp = malloc(sizeof(char) * 1000);
 
-    for (int i = 0; path[i] != NULL; i++) {
+    for (int i = 0; path != NULL && path[i] != NULL; i++) {
         src = opendir(path[i]);
         if (src != NULL) {
             cmp = is_good_bin_bis(str, path, src, i);

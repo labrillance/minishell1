@@ -87,14 +87,9 @@ int my_shell(char **tab, char **old_env)
         pid = fork();
         if (pid == 0)
             execve(test, opt, env);
-        else {
-            //pid = wait(&status);
-            waitpid(pid, &status, 0);
-            if (status == 11)
-                write(1, "Segmentation fault\n", 19);
-            if (status == 139)
-                write(1, "Segmentation fault (core dumped)\n", 33);
-        }
+        else
+            my_sig_trap(pid, status);
+
     }
     free(opt);
     free(test);

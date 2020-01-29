@@ -24,7 +24,7 @@ char *my_strcpy(char *dest, char const *src)
 char **get_path(char **env)
 {
     int i = 0;
-    char **tab;
+    char **tab = NULL;
 
     for (; env[i] != 0; i++) {
         if (env[i][0] == 'P' && env[i][1] == 'A' &&
