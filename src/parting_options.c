@@ -56,7 +56,7 @@ char **get_opt(char *str)
             opt[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
             y = 0;
         } else if (str[x] == '"') {
-            for (x++; str[x] != '"'; x++, y++)
+            for (x++; str[x] != '"' && str[x] != 0 ; x++, y++)
                 opt[i][y] = str[x];
         }
     }
