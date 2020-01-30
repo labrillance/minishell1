@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void print_env(char **env)
+char **print_env(char **env)
 {
     int i = 0;
 
@@ -18,6 +18,7 @@ void print_env(char **env)
         my_putchar('\n');
         i++;
     }
+    return env;
 }
 
 char **cpy_env_realloc(char **env, int i)

@@ -10,13 +10,12 @@
 
 int built_in_functions(char **test, char ***opt, char ***env)
 {
+    if (check_env_errors(*test, *opt) == 84)
+        return 1;
     if (my_cd(*opt, *test, *env) == 1) {
         return 1;
     } if (my_strcmp(*test, "setenv") == 0) {
-        if ((*opt)[1] == NULL)
-            print_env(*env);
-        else
-            *env = set_env(*env, *opt);
+        *env = ((*opt)[1] == NULL) ? print_env(*env) : set_env(*env, *opt);
         return 1;
     } if (my_strcmp(*test, "unsetenv") == 0) {
         *env = unset_env(*env, *opt);
@@ -28,7 +27,7 @@ int built_in_functions(char **test, char ***opt, char ***env)
         (*test)[2] == 'i' && (*test)[3] == 't' && (*test)[4] == 0) {
         my_putstr("exit\n");
         return 0;
-        }
+    }
     return 2;
 }
 
