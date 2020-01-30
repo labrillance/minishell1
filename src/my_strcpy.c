@@ -28,7 +28,7 @@ char **get_path(char **env)
 
     for (; env[i] != 0; i++) {
         if (env[i][0] == 'P' && env[i][1] == 'A' &&
-            env[i][2] == 'T' && env[i][3] == 'H') {
+            env[i][2] == 'T' && env[i][3] == 'H' && env[i][5] != 0) {
             tab = my_str_to_tab(env[i], ':');
         }
     }

@@ -9,6 +9,17 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+void print_env(char **env)
+{
+    int i = 0;
+
+    while (env[i] != NULL) {
+        my_putstr(env[i]);
+        my_putchar('\n');
+        i++;
+    }
+}
+
 char **cpy_env_realloc(char **env, int i)
 {
     char **new = malloc(sizeof(char *) * (i + 2));
@@ -81,7 +92,7 @@ char **set_env(char **env, char **opt)
         }
         y++;
         if (tmp == 0) {
-            for (int u = 0; opt[2][u] != 0; y++, u++)
+            for (int u = 0; opt[2] != NULL && opt[2][u] != 0; y++, u++)
                 env[i][y] = opt[2][u];
             env[i][y] = 0;
             cmp = 1;

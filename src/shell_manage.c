@@ -21,7 +21,10 @@ int built_in_functions(char **test, char ***opt, char ***env)
         *env = unset_env(*env, *opt);
         return 1;
     }
-    if (my_strlen(*test) == 4 && (*test)[0] == 'e' && (*test)[1] == 'x' &&
+    if (my_strcmp(*test, "env") == 0) {
+        print_env(*env);
+        return 1;
+    } if (my_strlen(*test) == 4 && (*test)[0] == 'e' && (*test)[1] == 'x' &&
         (*test)[2] == 'i' && (*test)[3] == 't' && (*test)[4] == 0) {
         my_putstr("exit\n");
         return 0;
@@ -44,7 +47,8 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     __sighandler_t sig = my_ctrl_c;
 
     *tab = get_path(*env);
-    my_putstr("$>");
+    if (isatty(0))
+        my_putstr("$>");
     signal(SIGINT, sig);
     if (getline(test, &s, stdin) == -1)
         return 0;
@@ -67,7 +71,7 @@ void my_sig_trap(pid_t pid, int status)
     pid = wait(&status);
     waitpid(pid, &status, 0);
     if (status == 11)
-        write(1, "Segmentation fault\n", 19);
+        write(1, "Segmentation fault.\n", 19);
     if (status == 139)
         write(1, "Segmentation fault (core dumped)\n", 33);
 }

@@ -13,14 +13,14 @@ char **change_oldpdw(char **env, int y)
     int tmp = 0;
     int x = 7;
 
-    for (; tmp == 0; i++) {
+    for (; tmp == 0 && env != NULL && env[i] != NULL; i++) {
         if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D' &&
             env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D' &&
             env[i][6] == '=')
             tmp = 1;
     }
     i--;
-    for (int cmp = 4; env[y][cmp] != 0; cmp++, x++)
+    for (int cmp = 4; env[i] != NULL && env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
         env[i][x] = env[y][cmp];
     env[i][x] = 0;
     return env;
@@ -34,7 +34,7 @@ char *get_old_pdw(char **env)
     int y = 0;
     char *result = 0;
 
-    for (; tmp == 0; i++) {
+    for (; tmp == 0 && env != NULL && env[i] != NULL; i++) {
         if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D' &&
             env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D' &&
             env[i][6] == '=')
@@ -64,7 +64,7 @@ char **change_pwdname(char **env)
     tmp[3] = '=';
     tmp[4] = 0;
     new = getcwd(new, size);
-    while (env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D')
+    while (env[i] != NULL && (env[i][0] != 'P' || env[i][1] != 'W' || env[i][2] != 'D'))
         i++;
     env = change_oldpdw(env, i);
     env[i] = 0;
