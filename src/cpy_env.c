@@ -17,10 +17,10 @@ char *get_home(char **env)
     int x = 0;
     int tmp = 0;
 
-    while (env[i][0] != 'H' || env[i][1] != 'O' ||
-        env[i][2] != 'M' || env[i][3] != 'E')
+    while (env[i] != NULL && (env[i][0] != 'H' || env[i][1] != 'O' ||
+        env[i][2] != 'M' || env[i][3] != 'E'))
         i++;
-    while (env[i][y] != 0) {
+    while (env[i] != 0 && (env[i][y] != 0)) {
         while (tmp == 0 && env[i][y - 1] != '=')
             y++;
         tmp = 1;
