@@ -12,16 +12,16 @@ int built_in_functions(char **test, char ***opt, char ***env)
 {
     if (my_cd(*opt, *test, *env) == 1) {
         return 1;
-    }
-    if (my_strcmp(*test, "setenv") == 0) {
-        *env = set_env(*env, *opt);
+    } if (my_strcmp(*test, "setenv") == 0) {
+        if ((*opt)[1] == NULL)
+            print_env(*env);
+        else
+            *env = set_env(*env, *opt);
         return 1;
-    }
-    if (my_strcmp(*test, "unsetenv") == 0) {
+    } if (my_strcmp(*test, "unsetenv") == 0) {
         *env = unset_env(*env, *opt);
         return 1;
-    }
-    if (my_strcmp(*test, "env") == 0) {
+    } if (my_strcmp(*test, "env") == 0) {
         print_env(*env);
         return 1;
     } if (my_strlen(*test) == 4 && (*test)[0] == 'e' && (*test)[1] == 'x' &&
