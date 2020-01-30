@@ -19,10 +19,11 @@ char **change_oldpdw(char **env, int y)
             env[i][6] == '=')
             tmp = 1;
     }
-    i--;
+    i = (i > 0) ? i - 1 : i;
     for (int cmp = 4; env[i] != NULL && env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
         env[i][x] = env[y][cmp];
-    env[i][x] = 0;
+    if (i != 0)
+        env[i][x] = 0;
     return env;
 }
 
