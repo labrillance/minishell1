@@ -62,7 +62,9 @@ char *is_good_bin(char *str, char **path)
 {
     DIR *src;
     char *cmp = malloc(sizeof(char) * 1000);
+    char *tmp = malloc(sizeof(char) * my_strlen(str));
 
+    tmp = my_strcpy(tmp, str);
     for (int i = 0; path != NULL && path[i] != NULL; i++) {
         src = opendir(path[i]);
         if (src != NULL) {
@@ -73,7 +75,8 @@ char *is_good_bin(char *str, char **path)
     }
     str = check_repo_act(str);
     if (str == NULL) {
-        perror("Binary error");
+        my_putstr(tmp);
+        my_putstr(": Command not found.\n");
         return NULL;
     } else
         return str;

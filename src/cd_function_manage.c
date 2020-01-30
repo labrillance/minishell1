@@ -20,7 +20,7 @@ char **change_oldpdw(char **env, int y)
             tmp = 1;
     }
     i = (i > 0) ? i - 1 : i;
-    for (int cmp = 4; env[i] != NULL && env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
+    for (int cmp = 4; tmp != 0 && env[i] != NULL && env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
         env[i][x] = env[y][cmp];
     if (i != 0)
         env[i][x] = 0;
