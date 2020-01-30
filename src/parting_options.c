@@ -32,7 +32,7 @@ char **my_str_to_tab(char *str, char s)
 
 void fix_end_opt(char ***opt, int *i, int y)
 {
-    if ((*opt)[1][0] != 0) {
+    if (y != 0) {
         (*opt)[*i][y] = 0;
         (*i)++;
     }
@@ -47,10 +47,10 @@ char **get_opt(char *str)
 
     opt[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
     for (int x = get_first_opt(str); str[x] != 0; x++) {
-        if (str[x] != ' ' && str[x] != '"') {
+        if (str[x] != ' ' && str[x] != '"' && str[x] != '\t') {
             opt[i][y] = str[x];
             y++;
-        } if (str[x] == ' ') {
+        } if (str[x] == ' ' || str[x] == '\t') {
             opt[i][y] = 0;
             i++;
             opt[i] = malloc(sizeof(char) * (my_strlen(str) + 1));

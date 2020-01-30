@@ -65,7 +65,7 @@ char **change_pwdname(char **env)
     tmp[3] = '=';
     tmp[4] = 0;
     new = getcwd(new, size);
-    while (env[i] != NULL && (env[i][0] != 'P' ||
+    while (env[i] != NULL && (env[i][0] != 'P' ||   
         env[i][1] != 'W' || env[i][2] != 'D'))
         i++;
     env = change_oldpdw(env, i);

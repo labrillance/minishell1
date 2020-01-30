@@ -57,7 +57,7 @@ int get_first_opt(char *str)
 {
     int x = 0;
 
-    while (str[x] != 0 && str[x] != ' ')
+    while (str[x] != 0 && str[x] != ' ' && str[x] != '\t')
         x++;
     if (str[x] != 0)
         x++;
