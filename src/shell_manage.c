@@ -70,9 +70,9 @@ void my_sig_trap(pid_t pid, int status)
     pid = wait(&status);
     waitpid(pid, &status, 0);
     if (status == 11)
-        write(1, "Segmentation fault.\n", 19);
+        write(1, "Segmentation fault\n", 19);
     if (status == 139)
-        write(1, "Segmentation fault (core dumped).\n", 34);
+        write(1, "Segmentation fault (core dumped)\n", 34);
 }
 
 int my_shell(char **tab, char **old_env)
