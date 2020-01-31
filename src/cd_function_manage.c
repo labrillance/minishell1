@@ -71,7 +71,6 @@ char **change_pwdname(char **env)
     env = change_oldpdw(env, i);
     env[i] = 0;
     env[i] = my_strcat(tmp, new);
-    free(tmp);
     return env;
 }
 

@@ -35,16 +35,15 @@ char **cpy_env_realloc(char **env, int i)
 
 char **unset_env(char **env, char **opt)
 {
-    int tmp = 0;
     int cmp = 0;
     int i = 0;
 
-    for (int y = 0; env[i] != 0 && cmp != 1; i++, y = 0, tmp = 0) {
+    for (int y = 0, tmp = 0; env[i] != 0 && cmp != 1; i++, y = 0, tmp = 0) {
         for (; env[i][y] != '=' && opt[1][y] != 0; y++) {
             if (opt[1][y] != env[i][y])
                 tmp = -1;
         }
-        if (tmp == 0) {
+        if (tmp == 0 && (opt[1][y] == 0 && env[i][y] == '=')) {
             cmp = 1;
         }
     }
@@ -52,8 +51,8 @@ char **unset_env(char **env, char **opt)
         for (int x = i - 1; env[i] != 0; i++) {
             env[x] = env[i]; 
         }
-    }
     env[i - 1] = 0;
+    }
     return env;
 }
 
