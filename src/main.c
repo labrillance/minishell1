@@ -74,11 +74,12 @@ char *is_good_bin(char *str, char **path)
         }
     }
     str = check_repo_act(str);
-    if (str == NULL) {
-        my_putstr(tmp);
-        my_putstr(": Command not found.\n");
+    if (str == NULL && access(tmp, X_OK) == -1) {
+        my_putstr(my_strcat(tmp, ": Command not found.\n"));
         return NULL;
-    } else
+    } else if (access(tmp, X_OK) != -1)
+        return tmp;
+    else
         return str;
 }
 
