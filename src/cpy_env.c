@@ -20,6 +20,8 @@ char *get_home(char **env)
     while (env[i] != NULL && (env[i][0] != 'H' || env[i][1] != 'O' ||
         env[i][2] != 'M' || env[i][3] != 'E'))
         i++;
+    if (env[i] == NULL)
+        my_putstr("cd: No home directory.\n");
     while (env[i] != 0 && (env[i][y] != 0)) {
         while (tmp == 0 && env[i][y - 1] != '=')
             y++;

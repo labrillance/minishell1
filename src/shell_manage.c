@@ -51,9 +51,7 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     signal(SIGINT, sig);
     if (getline(test, &s, stdin) == -1)
         return 0;
-    *test = clean_str(*test);
-    *opt = get_opt(*test);
-    *test = rm_n(*test);
+    transform_str(test, opt);
     if ((*test)[0] != 0) {
         tmp = built_in_functions(test, opt, env);
         if (tmp != 2)
