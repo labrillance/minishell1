@@ -17,6 +17,7 @@ SRC     	=	./src/main.c 	\
 				./src/cd_function_manage.c \
 				./src/parting_options.c \
 				./src/error_handling.c \
+				./src/no_path_parting.c \
 
 OBJ	=    $(SRC:.c=.o)
 
