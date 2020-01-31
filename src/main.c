@@ -55,6 +55,7 @@ char *is_good_bin_bis(char *str, char **path, DIR *src, int i)
             return my_strcat(cmp, info->d_name);
         }
     }
+    free(cmp);
     return NULL;
 }
 
@@ -62,7 +63,7 @@ char *is_good_bin(char *str, char **path)
 {
     DIR *src;
     char *cmp = malloc(sizeof(char) * 1000);
-    char *tmp = malloc(sizeof(char) * my_strlen(str));
+    char *tmp = malloc(sizeof(char) * my_strlen(str) * 100);
 
     tmp = my_strcpy(tmp, str);
     for (int i = 0; path != NULL && path[i] != NULL; i++) {

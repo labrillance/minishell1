@@ -10,30 +10,46 @@
 
 void transform_str(char **test, char ***opt)
 {
-    *test = clean_str(*test);
-    *opt = get_opt(*test);
-    *test = rm_n(*test);
+    if ((*test)[0] == '\n')
+        *test = NULL;
+    else {
+        *test = clean_str(*test);
+        *opt = get_opt(*test);
+        *test = rm_n(*test);
+    }
 }
 
-char *binary_manage(char *str, char *tmp)
+char *binary_manage_bis(char *str, char *tmp, struct stat st, char *buf)
 {
-    struct stat st;
-    char *buf = malloc(sizeof(char) * 100);
-    size_t size = 1000;
-
-    getcwd(buf, size);
-    buf = my_strcat(buf, "/");
-    stat(my_strcat(buf, tmp), &st);
-    if (st.st_mode & S_IFDIR) {
-        my_putstr(tmp);
-        my_putstr(": Permission denied.\n");
-        return NULL;
-    }
     if (str == NULL && access(tmp, X_OK) == -1) {
         my_putstr(my_strcat(tmp, ": Command not found.\n"));
+        free(tmp);
+        free(str);
+        return NULL;
+    } if (stat(my_strcat(buf, tmp), &st) == -1) {
+        free(tmp);
+        free(str);
+        return NULL;
+    } if (st.st_mode & S_IFDIR) {
+        my_putstr(tmp);
+        my_putstr(": Permission denied.\n");
         return NULL;
     } else if (access(tmp, X_OK) != -1)
         return tmp;
     else
         return str;
+}
+
+char *binary_manage(char *str, char *tmp)
+{
+    struct stat st;
+    char *buf = NULL;
+    char *cmp = malloc(sizeof(char) * 100);
+    size_t size = 1000;
+
+    buf = getcwd(buf, size);
+    cmp = my_strcpy(cmp, buf);
+    cmp = my_strcat(buf, "/");
+    free(buf);
+    return binary_manage_bis(str, tmp, st, buf);
 }

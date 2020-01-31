@@ -71,6 +71,7 @@ char **change_pwdname(char **env)
     env = change_oldpdw(env, i);
     env[i] = 0;
     env[i] = my_strcat(tmp, new);
+    free(tmp);
     return env;
 }
 
@@ -83,7 +84,7 @@ char *cd_options(char **opt, char **env)
     if (opt[1] != 0 && opt[1][0] != '/' && opt[1][0] != '~' && opt[1][0] != '-') {
         buf = getcwd(buf, size);
         buf = add_n(buf);
-        tmp = malloc(sizeof(char) * my_strlen(buf) * 2);
+        tmp = malloc(sizeof(char) * my_strlen(buf) * 5);
         tmp[0] = 0;
         buf = my_strcat(buf, my_strcpy(tmp, opt[1]));
     } else if (opt[1] != NULL && opt[1][0] != '~' && opt[1][0] != '-') {

@@ -52,7 +52,7 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     if (getline(test, &s, stdin) == -1)
         return 0;
     transform_str(test, opt);
-    if ((*test)[0] != 0) {
+    if ((*test) != NULL && (*test)[0] != 0) {
         tmp = built_in_functions(test, opt, env);
         if (tmp != 2)
             return tmp;
