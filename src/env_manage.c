@@ -88,7 +88,8 @@ char **set_env(char **env, char **opt)
 
     for (int i = 0, y = 0; env[i] != 0; i++, y = 0, tmp = 0) {
         for (; env[i][y] != '=' && opt[1][y] != 0; y++) {
-            if (opt[1][y] != env[i][y] || (opt[1][y + 1] == 0 && env[i][y + 1] != '=') || (opt[1][y + 1] != 0 && env[i][y + 1] == '='))
+            if (opt[1][y] != env[i][y] || (opt[1][y + 1] == 0 && env[i][y + 1]
+             != '=') || (opt[1][y + 1] != 0 && env[i][y + 1] == '='))
                 tmp = -1;
         }
         y++;
