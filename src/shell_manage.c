@@ -71,6 +71,10 @@ void my_sig_trap(pid_t pid, int status)
         write(1, "Segmentation fault\n", 19);
     if (status == 139)
         write(1, "Segmentation fault (core dumped)\n", 34);
+    if (status == 8)
+        my_putstr("Floating exception\n");
+    if (status == 139)
+        my_putstr("Floating exception (core dump)\n");
 }
 
 int my_shell(char **tab, char **old_env)

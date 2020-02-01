@@ -9,6 +9,7 @@ SRC	=	my_putchar.c 		\
 		my_putstr.c \
 		my_strlen.c \
 		my_strcat.c \
+		is_alphanumeric.c \
 
 
 OBJ	=	$(SRC:.c=.o)
