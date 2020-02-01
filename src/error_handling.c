@@ -7,6 +7,15 @@
 
 #include "my.h"
 
+int check_env_errors_bis(char *str, char **opt)
+{
+    if (my_strcmp(str, "cd") == 0 && opt[2] != 0) {
+        my_putstr("cd: Too many arguments.\n");
+        return 84;
+    }
+    return 0;
+}
+
 int check_env_errors(char *str, char **opt)
 {
     if (my_strcmp(str, "setenv") == 0 && opt[3] != NULL) {
@@ -27,5 +36,5 @@ int check_env_errors(char *str, char **opt)
         my_putstr(" alphanumeric characters.\n");
         return 84;
     }
-    return 0;
+    return check_env_errors_bis(str, opt);
 }

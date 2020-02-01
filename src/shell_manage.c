@@ -36,6 +36,7 @@ void my_ctrl_c(int o)
     int i = o;
     i++;
     my_putchar('\n');
+    my_putstr(getcwd(NULL, 1000));
     my_putstr("$>");
 }
 
@@ -46,11 +47,12 @@ int manage_shell(char **test, char ***opt, char ***env, char ***tab)
     __sighandler_t sig = my_ctrl_c;
 
     *tab = get_path(*env);
-    if (isatty(0))
+    if (isatty(0)) {
+        my_putstr(getcwd(NULL, s));
         my_putstr("$>");
-    signal(SIGINT, sig);
-    if (getline(test, &s, stdin) == -1)
+    } if (getline(test, &s, stdin) == -1)
         return 0;
+    signal(SIGINT, sig);
     transform_str(test, opt);
     if ((*test) != NULL && (*test)[0] != 0) {
         tmp = built_in_functions(test, opt, env);
@@ -96,7 +98,6 @@ int my_shell(char **tab, char **old_env)
             execve(test, opt, env);
         else
             my_sig_trap(pid, status);
-
     }
     free(opt);
     free(test);
