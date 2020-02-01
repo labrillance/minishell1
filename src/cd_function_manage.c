@@ -27,29 +27,25 @@ char **change_oldpdw(char **env, int y)
     return env;
 }
 
-char *get_old_pdw(char **env)
+char *get_old_pdw(int true)
 {
-    int i = 0;
-    int tmp = 0;
-    int x = 0;
-    int y = 0;
-    char *result = 0;
+    static char *tmp = NULL;
+    char *result = malloc(sizeof(char) * 1000);
+    size_t size = 1000;
 
-    for (; tmp == 0 && env != NULL && env[i] != NULL; i++) {
-        if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D' &&
-            env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D' &&
-            env[i][6] == '=')
-            tmp = 1;
+    if (tmp == NULL && true == 1) {
+        tmp = getcwd(tmp, size);
+        my_putstr("cd : No such file or directory.\n");
     }
-    i--;
-    result = malloc(sizeof(char) * my_strlen(env[i]));
-    for (; env[i][x] != '='; x++);
-    x++;
-    for (; env[i][x] != 0; x++, y++)
-        result[y] = env[i][x];
-    result[y] = '/';
-    result[y+ 1] = 0;
-    return result;
+    if (true == 0) {
+        tmp = getcwd(tmp, size);
+    } if (true == 1) {
+        result = my_strcpy(result, tmp);
+        chdir(result);
+        tmp = getcwd(tmp, size);
+        return "p";
+    }
+    return NULL;
 }
 
 char **change_pwdname(char **env)
@@ -68,7 +64,6 @@ char **change_pwdname(char **env)
     while (env[i] != NULL && (env[i][0] != 'P' ||   
         env[i][1] != 'W' || env[i][2] != 'D'))
         i++;
-    env = change_oldpdw(env, i);
     env[i] = 0;
     env[i] = my_strcat(tmp, new);
     return env;
@@ -91,7 +86,8 @@ char *cd_options(char **opt, char **env)
         tmp = my_strcpy(tmp, opt[1]);
     }
     if (opt[1] != NULL && opt[1][0] == '-' && opt[1][1] == 0)
-        tmp = get_old_pdw(env);
+        tmp = get_old_pdw(1);
+    get_old_pdw(0);
     if (buf != NULL)
         tmp = my_strcpy(tmp, buf);
     free(buf);
@@ -104,7 +100,7 @@ int my_cd(char **opt, char *str, char **env)
 
     if (str[0] == 'c' && str[1] == 'd' && str[2] == 0) {
         tmp = cd_options(opt, env);
-        if (tmp != 0) {
+        if (tmp != 0 && tmp[0] != 'p') {
             if (chdir(tmp) == -1)
                 perror("cd ");
         } if (tmp == 0 || opt[1][0] == '~')
