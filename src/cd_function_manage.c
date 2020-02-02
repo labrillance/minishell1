@@ -7,41 +7,30 @@
 
 #include "my.h"
 
-char **change_oldpdw(char **env, int y)
+char *get_old_pdw_bis(int true, char *tmp, char **op, int *cmp)
 {
-    int i = 0;
-    int tmp = 0;
-    int x = 7;
+    size_t size = 1000;
 
-    for (; tmp == 0 && env != NULL && env[i] != NULL; i++) {
-        if (env[i][0] == 'O' && env[i][1] == 'L' && env[i][2] == 'D' &&
-            env[i][3] == 'P' && env[i][4] == 'W' && env[i][5] == 'D' &&
-            env[i][6] == '=')
-            tmp = 1;
+    if (tmp == NULL && true == 1) {
+        tmp = getcwd(tmp, size);
+        my_putstr("cd : No such file or directory.\n");
     }
-    i = (i > 0) ? i - 1 : i;
-    for (int cmp = 4; tmp != 0 && env[i] != NULL &&
-        env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
-        env[i][x] = env[y][cmp];
-    if (i != 0 && tmp != 0)
-        env[i][x] = 0;
-    return env;
+    if (true == 0 && *cmp != 1 && (op[1] == NULL || op[1][0] == '~'))
+        tmp = getcwd(tmp, size);
+    return tmp;
 }
 
-char *get_old_pdw(int true, char *test)
+char *get_old_pdw(int true, char *test, char **op)
 {
     static char *tmp = NULL;
     char *result = malloc(sizeof(char) * 1000);
     size_t size = 1000;
     static int cmp = 0;
 
-    if (tmp == NULL && true == 1) {
+    tmp = get_old_pdw_bis(true, tmp, op, &cmp);
+    if (true == 0 && cmp != 1 && access(test, F_OK) != -1)
         tmp = getcwd(tmp, size);
-        my_putstr("cd : No such file or directory.\n");
-    }
-    if (true == 0 && cmp != 1 && access(test, F_OK) != -1) {
-        tmp = getcwd(tmp, size);
-    } if (true == 1) {
+    if (true == 1) {
         result = my_strcpy(result, tmp);
         tmp = getcwd(tmp, size);
         cmp = 1;
@@ -90,8 +79,8 @@ char *cd_options(char **op)
         tmp = my_strcpy(tmp, op[1]);
     }
     if (op[1] != NULL && op[1][0] == '-' && op[1][1] == 0)
-        tmp = get_old_pdw(1, tmp);
-    get_old_pdw(0, tmp);
+        tmp = get_old_pdw(1, tmp, op);
+    get_old_pdw(0, tmp, op);
     if (buf != NULL)
         tmp = my_strcpy(tmp, buf);
     free(buf);
