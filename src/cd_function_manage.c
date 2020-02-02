@@ -33,19 +33,22 @@ char *get_old_pdw(int true)
     static char *tmp = NULL;
     char *result = malloc(sizeof(char) * 1000);
     size_t size = 1000;
+    static int cmp = 0;
 
     if (tmp == NULL && true == 1) {
         tmp = getcwd(tmp, size);
         my_putstr("cd : No such file or directory.\n");
     }
-    if (true == 0) {
+    if (true == 0 && cmp != 1) {
         tmp = getcwd(tmp, size);
     } if (true == 1) {
         result = my_strcpy(result, tmp);
-        chdir(result);
         tmp = getcwd(tmp, size);
+        cmp = 1;
+        chdir(result);
         return "p";
     }
+    cmp = 0;
     return NULL;
 }
 
