@@ -87,7 +87,6 @@ int my_shell(char **tab, char **old_env)
     pid_t pid;
     char **opt = NULL;
     static char **env = NULL;
-    int d = 0;
 
     env = (env == NULL) ? cpy_env(old_env) : env;
     tmp = manage_shell(&test, &opt, &env, &tab);
