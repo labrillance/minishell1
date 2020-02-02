@@ -87,6 +87,7 @@ int my_shell(char **tab, char **old_env)
     pid_t pid;
     char **opt = NULL;
     static char **env = NULL;
+    int d = 0;
 
     env = (env == NULL) ? cpy_env(old_env) : env;
     tmp = manage_shell(&test, &opt, &env, &tab);
@@ -95,7 +96,7 @@ int my_shell(char **tab, char **old_env)
     if (test != NULL) {
         pid = fork();
         if (pid == 0)
-            execve(test, opt, env);
+            exe_error(execve(test, opt, env), test);
         else
             my_sig_trap(pid, status);
     }

@@ -6,6 +6,21 @@
 */
 
 #include "my.h"
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+void exe_error(int d, char *test)
+{
+    if (d == -1) {
+    strerror(d);
+        if (errno == 8) {
+            my_putstr(test);
+            my_putstr(": Exec format error. Wrong Architecture.\n");
+            exit(0);
+        }
+    }
+}
 
 int check_error(int ac, char **av)
 {

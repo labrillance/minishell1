@@ -28,7 +28,7 @@ char **change_oldpdw(char **env, int y)
     return env;
 }
 
-char *get_old_pdw(int true)
+char *get_old_pdw(int true, char *test)
 {
     static char *tmp = NULL;
     char *result = malloc(sizeof(char) * 1000);
@@ -39,7 +39,7 @@ char *get_old_pdw(int true)
         tmp = getcwd(tmp, size);
         my_putstr("cd : No such file or directory.\n");
     }
-    if (true == 0 && cmp != 1) {
+    if (true == 0 && cmp != 1 && access(test, F_OK) != -1) {
         tmp = getcwd(tmp, size);
     } if (true == 1) {
         result = my_strcpy(result, tmp);
@@ -73,7 +73,7 @@ char **change_pwdname(char **env)
     return env;
 }
 
-char *cd_options(char **op, char **env)
+char *cd_options(char **op)
 {
     char *tmp = NULL;
     char *buf = NULL;
@@ -90,8 +90,8 @@ char *cd_options(char **op, char **env)
         tmp = my_strcpy(tmp, op[1]);
     }
     if (op[1] != NULL && op[1][0] == '-' && op[1][1] == 0)
-        tmp = get_old_pdw(1);
-    get_old_pdw(0);
+        tmp = get_old_pdw(1, tmp);
+    get_old_pdw(0, tmp);
     if (buf != NULL)
         tmp = my_strcpy(tmp, buf);
     free(buf);
@@ -103,7 +103,7 @@ int my_cd(char **opt, char *str, char **env)
     char *tmp = NULL;
 
     if (str[0] == 'c' && str[1] == 'd' && str[2] == 0) {
-        tmp = cd_options(opt, env);
+        tmp = cd_options(opt);
         if (tmp != 0 && tmp[0] != 'p') {
             if (chdir(tmp) == -1)
                 perror("cd ");
