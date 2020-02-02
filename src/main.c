@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <sys/signal.h>
 
-
 char *check_repo_act(char *str)
 {
     DIR *src;

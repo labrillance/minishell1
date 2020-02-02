@@ -49,7 +49,7 @@ char **unset_env(char **env, char **opt)
     }
     if (cmp == 1) {
         for (int x = i - 1; env[i] != 0; i++) {
-            env[x] = env[i]; 
+            env[x] = env[i];
         }
     env[i - 1] = 0;
     }

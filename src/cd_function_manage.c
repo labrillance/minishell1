@@ -20,7 +20,8 @@ char **change_oldpdw(char **env, int y)
             tmp = 1;
     }
     i = (i > 0) ? i - 1 : i;
-    for (int cmp = 4; tmp != 0 && env[i] != NULL && env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
+    for (int cmp = 4; tmp != 0 && env[i] != NULL &&
+        env[y] != NULL && env[y][cmp] != 0; cmp++, x++)
         env[i][x] = env[y][cmp];
     if (i != 0 && tmp != 0)
         env[i][x] = 0;
@@ -61,7 +62,7 @@ char **change_pwdname(char **env)
     tmp[3] = '=';
     tmp[4] = 0;
     new = getcwd(new, size);
-    while (env[i] != NULL && (env[i][0] != 'P' ||   
+    while (env[i] != NULL && (env[i][0] != 'P' ||
         env[i][1] != 'W' || env[i][2] != 'D'))
         i++;
     env[i] = 0;
@@ -69,23 +70,23 @@ char **change_pwdname(char **env)
     return env;
 }
 
-char *cd_options(char **opt, char **env)
+char *cd_options(char **op, char **env)
 {
     char *tmp = NULL;
     char *buf = NULL;
     size_t size = 1000;
 
-    if (opt[1] != 0 && opt[1][0] != '/' && opt[1][0] != '~' && opt[1][0] != '-') {
+    if (op[1] != 0 && op[1][0] != '/' && op[1][0] != '~' && op[1][0] != '-') {
         buf = getcwd(buf, size);
         buf = add_n(buf);
         tmp = malloc(sizeof(char) * my_strlen(buf) * 5);
         tmp[0] = 0;
-        buf = my_strcat(buf, my_strcpy(tmp, opt[1]));
-    } else if (opt[1] != NULL && opt[1][0] != '~' && opt[1][0] != '-') {
-        tmp = malloc(sizeof(char) * my_strlen(opt[1]) * 2);
-        tmp = my_strcpy(tmp, opt[1]);
+        buf = my_strcat(buf, my_strcpy(tmp, op[1]));
+    } else if (op[1] != NULL && op[1][0] != '~' && op[1][0] != '-') {
+        tmp = malloc(sizeof(char) * my_strlen(op[1]) * 2);
+        tmp = my_strcpy(tmp, op[1]);
     }
-    if (opt[1] != NULL && opt[1][0] == '-' && opt[1][1] == 0)
+    if (op[1] != NULL && op[1][0] == '-' && op[1][1] == 0)
         tmp = get_old_pdw(1);
     get_old_pdw(0);
     if (buf != NULL)
